@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>Tpass calculator</title>
+    </head>
+    <style>
+        h1 {
+            text-align: center;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-types {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            justify-content: center;
+            align-content: center;
+            margin: auto;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .ticket-types label img {
+            width: auto; /* 图片宽度自动 */
+            max-width: 90%; /* 最大宽度不超过容器宽度 */
+            height: auto; /* 高度自动 */
+            opacity: 0.5; /* 初始透明度设置为半透明 */
+            transition: opacity 0.3s ease-in-out;
+            display: block; /* 图片显示为块级元素 */
+            margin: 0 auto 10px; /* 图片居中，底部有10px的间距 */
+        }
+        
+        .ticket-types input[type="radio"]:checked ~ img {
+            opacity: 1;
+        }
+
+        .ticket-types label img:hover {
+            opacity: 1;
+        }
+
+        .ticket-types label input[type="radio"] {
+            display: none;
+        }
+
+        /* 设置label样式使其看起来像按钮，并在图片下方居中 */
+        .ticket-types label {
+            cursor: pointer; /* 显示指针手型 */
+            text-align: center; /* 文本居中 */
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif; /* 设置字体 */
+            display: block; /* label显示为块级元素 */
+            width: 100%; /* 宽度设置为100% */
+            margin-bottom: 20px; /* 与下一个元素的间距 */
+        }
+
+        /* 设置span元素的样式 */
+        .ticket-types span {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif; /* 设置字体 */
+            display: block; /* span显示为块级元素 */
+            margin-top: 10px; /* 设置与图片的间距 */
+        }
+
+        
+        button[type="submit"] {
+            display: block; /* 使按钮变为块级元素 */
+            margin: 0 auto; /* 水平居中 */
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-size: 20px;
+            border-radius: 5px;
+            border: 2px solid #007bff;
+            background-color: #007bff; /* 设置背景颜色 */
+            color: #fff;
+        }
+        
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* 悬停时的背景颜色 */
+            color: #fff; /* 悬停时的文本颜色 */
+        }
+
+        @media (max-width: 600px) {
+            .ticket-types {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        body {
+            background-color: #F0F0F0;
+        }
+    </style>        
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

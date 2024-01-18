@@ -1,0 +1,12 @@
+{
+    "cloud_neo4j_root": {
+        "NT_CHILD_RATIO": 0.4,
+        "TP_CHILD_RATIO": 0.6,
+        "OLD_RATIO": 0.4,
+        "TY_CHILD_RATIO": 0.8,
+        "TY_OLD_RATIO": 0.5
+    },
+    "train_config": {
+        "URL": "https://www.railway.gov.tw/tra-tip-web/tip/tip001/tip114/query"
+    }
+}

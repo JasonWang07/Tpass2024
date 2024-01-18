@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <!-- <div style="background-image: url('static/index_icons/background.jpg'); background-size: cover; background-position: center;"> -->
+        <h1 class="centered-title">請選擇票種</h1>
+        <form action="/planner" method="POST">
+            <div class="ticket-types">
+                <label for="adult_price">
+                    <input id="adult_price" name="guest_type" type="radio" value="adult_price">
+                    <img src="static/index_icons/adult.jpg" alt="Adult Ticket">
+                    <span>{{ guest_kinds[0]}}</span>
+                </label>
+
+                <label for="old_price">
+                    <input id="old_price" name="guest_type" type="radio" value="old_price">
+                    <img src="static/index_icons/old.jpg" alt="Senior Ticket">
+                    <span>{{ guest_kinds[1]}}</span>
+                </label>
+
+                <label for="tp_child_price">
+                    <input id="tp_child_price" name="guest_type" type="radio" value="tp_child_price">
+                    <img src="static/index_icons/tp_kid.jpg" alt="TP Child Ticket">
+                    <span>{{ guest_kinds[2]}}</span>
+                </label>
+
+                <label for="nt_child_price">
+                    <input id="nt_child_price" name="guest_type" type="radio" value="nt_child_price">
+                    <img src="static/index_icons/nt_kid.jpg" alt="NT Child Ticket">
+                    <span>{{ guest_kinds[3]}}</span>
+                </label>
+            </div>
+            <button type="submit">確定</button>
+        </form>
+    <!-- </div> -->
+{% endblock %}

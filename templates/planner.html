@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="left-side">
+        <!-- Create day squares for each day -->
+        <div class="day-square" id="Mon">
+            <div class="day-label">ㄧ</div>
+            <div id="userBlocksContainer_Mon"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Tue">
+            <div class="day-label">二</div>
+            <div id="userBlocksContainer_Tue"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Wed">
+            <div class="day-label">三</div>
+            <div id="userBlocksContainer_Wed"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Thu">
+            <div class="day-label">四</div>
+            <div id="userBlocksContainer_Thu"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Fri">
+            <div class="day-label">五</div>
+            <div id="userBlocksContainer_Fri"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Sat">
+            <div class="day-label">六</div>
+            <div id="userBlocksContainer_Sat"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Sun">
+            <div class="day-label">日</div>
+            <div id="userBlocksContainer_Sun"></div>
+            <div class="plus-button" onclick="showUpperPart(this)">+</div>
+        </div>
+
+        <div class="day-square" id="Sum">
+            <p id ="total_sum" ></p>
+        </div>
+    </div>
+
+    <div class="right-side">
+        <div class="upper-part" id="upperPart">
+            <form id="optionsForm">
+                <div class="radio-options">
+                    {% for transport_en, transport_cn in transport_kinds.items() %}
+                        <input type="radio" id="option_{{ transport }}" name="options" value="{{ transport_en }}"> {{ transport_cn }}
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+
+        <div class="below-part" id="belowPart">
+            <div class="window" id="windowTPmetro">
+                Window for TPmetro
+                <p>你的例行行程是？</p>
+                <form>
+                    <label for="startStation_TPmetro">起始站點</label>
+                    <select id="startStation_TPmetro" name = "startStation_name" required>
+                        <option disabled selected>請選擇站點</option>
+                        <optgroup label="---文湖線---">
+                            <option value="BR01">動物園</option>
+                            <option value="BR02">木柵</option>
+                            <option value="BR03">萬芳社區</option>
+                            <option value="BR04">萬芳醫院</option>
+                            <option value="BR05">辛亥</option>
+                            <option value="BR06">麟光</option>
+                            <option value="BR07">六張犁</option>
+                            <option value="BR08">科技大樓</option>
+                            <option value="BR09">大安</option>
+                            <option value="BR10">忠孝復興</option>
+                            <option value="BR11">南京復興</option>
+                            <option value="BR12">中山國中</option>
+                            <option value="BR13">松山機場</option>
+                            <option value="BR14">大直</option>
+                            <option value="BR15">劍南路</option>
+                            <option value="BR16">西湖</option>
+                            <option value="BR17">港墘</option>
+                            <option value="BR18">文德</option>
+                            <option value="BR19">內湖</option>
+                            <option value="BR20">大湖公園</option>
+                            <option value="BR21">葫洲</option>
+                            <option value="BR22">東湖</option>
+                            <option value="BR23">南港軟體園區</option>
+                            <option value="BR24">南港展覽館</option>
+                        </optgroup>
+                        <optgroup label="---淡水信義線---">
+                            <option value="R02">象山</option>
+                            <option value="R03">台北101/世貿</option>
+                            <option value="R04">信義安和</option>
+                            <option value="R05">大安</option>
+                            <option value="R06">大安森林公園</option>
+                            <option value="R07">東門</option>
+                            <option value="R08">中正紀念堂</option>
+                            <option value="R09">台大醫院</option>
+                            <option value="R10">台北車站</option>
+                            <option value="R11">中山</option>
+                            <option value="R12">雙連</option>
+                            <option value="R13">民權西路</option>
+                            <option value="R14">圓山</option>
+                            <option value="R15">劍潭</option>
+                            <option value="R16">士林</option>
+                            <option value="R17">芝山</option>
+                            <option value="R18">明德</option>
+                            <option value="R19">石牌</option>
+                            <option value="R20">唭哩岸</option>
+                            <option value="R21">奇岩</option>
+                            <option value="R22">北投</option>
+                            <option value="R22A">新北投</option>
+                            <option value="R23">復興崗</option>
+                            <option value="R24">忠義</option>
+                            <option value="R25">關渡</option>
+                            <option value="R26">竹圍</option>
+                            <option value="R27">紅樹林</option>
+                            <option value="R28">淡水</option>
+                        </optgroup>
+                        <optgroup label="---松山新店線---">
+                            <option value="G01">新店</option>
+                            <option value="G02">新店區公所</option>
+                            <option value="G03">七張</option>
+                            <option value="G03A">小碧潭</option>
+                            <option value="G04">大坪林</option>
+                            <option value="G05">景美</option>
+                            <option value="G06">萬隆</option>
+                            <option value="G07">公館</option>
+                            <option value="G08">台電大樓</option>
+                            <option value="G09">古亭</option>
+                            <option value="G10">中正紀念堂</option>
+                            <option value="G11">小南門</option>
+                            <option value="G12">西門</option>
+                            <option value="G13">北門</option>
+                            <option value="G14">中山</option>
+                            <option value="G15">松江南京</option>
+                            <option value="G16">南京復興</option>
+                            <option value="G17">台北小巨蛋</option>
+                            <option value="G18">南京三民</option>
+                            <option value="G19">松山</option>
+                        </optgroup>
+                        <optgroup label="---中和新蘆線---">
+                            <option value="O01">南勢角</option>
+                            <option value="O02">景安</option>
+                            <option value="O03">永安市場</option>
+                            <option value="O04">頂溪</option>
+                            <option value="O05">古亭</option>
+                            <option value="O06">東門</option>
+                            <option value="O07">忠孝新生</option>
+                            <option value="O08">松江南京</option>
+                            <option value="O09">行天宮</option>
+                            <option value="O10">中山國小</option>
+                            <option value="O11">民權西路</option>
+                            <option value="O12">大橋頭</option>
+                            <option value="O13">台北橋</option>
+                            <option value="O14">菜寮</option>
+                            <option value="O15">三重</option>
+                            <option value="O16">先嗇宮</option>
+                            <option value="O17">頭前庄</option>
+                            <option value="O18">新莊</option>
+                            <option value="O19">輔大</option>
+                            <option value="O20">丹鳳</option>
+                            <option value="O21">迴龍</option>
+                            <option value="O50">三重國小</option>
+                            <option value="O51">三和國中</option>
+                            <option value="O52">徐匯中學</option>
+                            <option value="O53">三民高中</option>
+                            <option value="O54">蘆洲</option>
+                        </optgroup>
+                        <optgroup label="---板南線---">
+                            <option value="BL01">頂埔</option>
+                            <option value="BL02">永寧</option>
+                            <option value="BL03">土城</option>
+                            <option value="BL04">海山</option>
+                            <option value="BL05">亞東醫院</option>
+                            <option value="BL06">府中</option>
+                            <option value="BL07">板橋</option>
+                            <option value="BL08">新埔</option>
+                            <option value="BL09">江子翠</option>
+                            <option value="BL10">龍山寺</option>
+                            <option value="BL11">西門</option>
+                            <option value="BL12">台北車站</option>
+                            <option value="BL13">善導寺</option>
+                            <option value="BL14">忠孝新生</option>
+                            <option value="BL15">忠孝復興</option>
+                            <option value="BL16">忠孝敦化</option>
+                            <option value="BL17">國父紀念館</option>
+                            <option value="BL18">市政府</option>
+                            <option value="BL19">永春</option>
+                            <option value="BL20">後山埤</option>
+                            <option value="BL21">昆陽</option>
+                            <option value="BL22">南港</option>
+                            <option value="BL23">南港展覽館</option>
+                            <option value="Y07">大坪林</option>
+                            <option value="Y08">十四張</option>
+                            <option value="Y09">秀朗橋</option>
+                            <option value="Y10">景平</option>
+                            <option value="Y11">景安</option>
+                            <option value="Y12">中和</option>
+                            <option value="Y13">橋和</option>
+                            <option value="Y14">中原</option>
+                            <option value="Y15">板新</option>
+                            <option value="Y16">板橋</option>
+                            <option value="Y17">新埔民生</option>
+                            <option value="Y18">頭前庄</option>
+                            <option value="Y19">幸福</option>
+                            <option value="Y20">新北產業園區</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="endStation_TPmetro">終點站點</label>
+                    <select id="endStation_TPmetro" name = "endStation_name" required>
+                        <option disabled selected>請選擇站點</option>
+                        <optgroup label="---文湖線---">
+                            <option value="BR01">動物園</option>
+                            <option value="BR02">木柵</option>
+                            <option value="BR03">萬芳社區</option>
+                            <option value="BR04">萬芳醫院</option>
+                            <option value="BR05">辛亥</option>
+                            <option value="BR06">麟光</option>
+                            <option value="BR07">六張犁</option>
+                            <option value="BR08">科技大樓</option>
+                            <option value="BR09">大安</option>
+                            <option value="BR10">忠孝復興</option>
+                            <option value="BR11">南京復興</option>
+                            <option value="BR12">中山國中</option>
+                            <option value="BR13">松山機場</option>
+                            <option value="BR14">大直</option>
+                            <option value="BR15">劍南路</option>
+                            <option value="BR16">西湖</option>
+                            <option value="BR17">港墘</option>
+                            <option value="BR18">文德</option>
+                            <option value="BR19">內湖</option>
+                            <option value="BR20">大湖公園</option>
+                            <option value="BR21">葫洲</option>
+                            <option value="BR22">東湖</option>
+                            <option value="BR23">南港軟體園區</option>
+                            <option value="BR24">南港展覽館</option>
+                        </optgroup>
+                        <optgroup label="---淡水信義線---">
+                            <option value="R02">象山</option>
+                            <option value="R03">台北101/世貿</option>
+                            <option value="R04">信義安和</option>
+                            <option value="R05">大安</option>
+                            <option value="R06">大安森林公園</option>
+                            <option value="R07">東門</option>
+                            <option value="R08">中正紀念堂</option>
+                            <option value="R09">台大醫院</option>
+                            <option value="R10">台北車站</option>
+                            <option value="R11">中山</option>
+                            <option value="R12">雙連</option>
+                            <option value="R13">民權西路</option>
+                            <option value="R14">圓山</option>
+                            <option value="R15">劍潭</option>
+                            <option value="R16">士林</option>
+                            <option value="R17">芝山</option>
+                            <option value="R18">明德</option>
+                            <option value="R19">石牌</option>
+                            <option value="R20">唭哩岸</option>
+                            <option value="R21">奇岩</option>
+                            <option value="R22">北投</option>
+                            <option value="R22A">新北投</option>
+                            <option value="R23">復興崗</option>
+                            <option value="R24">忠義</option>
+                            <option value="R25">關渡</option>
+                            <option value="R26">竹圍</option>
+                            <option value="R27">紅樹林</option>
+                            <option value="R28">淡水</option>
+                        </optgroup>
+                        <optgroup label="---松山新店線---">
+                            <option value="G01">新店</option>
+                            <option value="G02">新店區公所</option>
+                            <option value="G03">七張</option>
+                            <option value="G03A">小碧潭</option>
+                            <option value="G04">大坪林</option>
+                            <option value="G05">景美</option>
+                            <option value="G06">萬隆</option>
+                            <option value="G07">公館</option>
+                            <option value="G08">台電大樓</option>
+                            <option value="G09">古亭</option>
+                            <option value="G10">中正紀念堂</option>
+                            <option value="G11">小南門</option>
+                            <option value="G12">西門</option>
+                            <option value="G13">北門</option>
+                            <option value="G14">中山</option>
+                            <option value="G15">松江南京</option>
+                            <option value="G16">南京復興</option>
+                            <option value="G17">台北小巨蛋</option>
+                            <option value="G18">南京三民</option>
+                            <option value="G19">松山</option>
+                        </optgroup>
+                        <optgroup label="---中和新蘆線---">
+                            <option value="O01">南勢角</option>
+                            <option value="O02">景安</option>
+                            <option value="O03">永安市場</option>
+                            <option value="O04">頂溪</option>
+                            <option value="O05">古亭</option>
+                            <option value="O06">東門</option>
+                            <option value="O07">忠孝新生</option>
+                            <option value="O08">松江南京</option>
+                            <option value="O09">行天宮</option>
+                            <option value="O10">中山國小</option>
+                            <option value="O11">民權西路</option>
+                            <option value="O12">大橋頭</option>
+                            <option value="O13">台北橋</option>
+                            <option value="O14">菜寮</option>
+                            <option value="O15">三重</option>
+                            <option value="O16">先嗇宮</option>
+                            <option value="O17">頭前庄</option>
+                            <option value="O18">新莊</option>
+                            <option value="O19">輔大</option>
+                            <option value="O20">丹鳳</option>
+                            <option value="O21">迴龍</option>
+                            <option value="O50">三重國小</option>
+                            <option value="O51">三和國中</option>
+                            <option value="O52">徐匯中學</option>
+                            <option value="O53">三民高中</option>
+                            <option value="O54">蘆洲</option>
+                        </optgroup>
+                        <optgroup label="---板南線---">
+                            <option value="BL01">頂埔</option>
+                            <option value="BL02">永寧</option>
+                            <option value="BL03">土城</option>
+                            <option value="BL04">海山</option>
+                            <option value="BL05">亞東醫院</option>
+                            <option value="BL06">府中</option>
+                            <option value="BL07">板橋</option>
+                            <option value="BL08">新埔</option>
+                            <option value="BL09">江子翠</option>
+                            <option value="BL10">龍山寺</option>
+                            <option value="BL11">西門</option>
+                            <option value="BL12">台北車站</option>
+                            <option value="BL13">善導寺</option>
+                            <option value="BL14">忠孝新生</option>
+                            <option value="BL15">忠孝復興</option>
+                            <option value="BL16">忠孝敦化</option>
+                            <option value="BL17">國父紀念館</option>
+                            <option value="BL18">市政府</option>
+                            <option value="BL19">永春</option>
+                            <option value="BL20">後山埤</option>
+                            <option value="BL21">昆陽</option>
+                            <option value="BL22">南港</option>
+                            <option value="BL23">南港展覽館</option>
+                            <option value="Y07">大坪林</option>
+                            <option value="Y08">十四張</option>
+                            <option value="Y09">秀朗橋</option>
+                            <option value="Y10">景平</option>
+                            <option value="Y11">景安</option>
+                            <option value="Y12">中和</option>
+                            <option value="Y13">橋和</option>
+                            <option value="Y14">中原</option>
+                            <option value="Y15">板新</option>
+                            <option value="Y16">板橋</option>
+                            <option value="Y17">新埔民生</option>
+                            <option value="Y18">頭前庄</option>
+                            <option value="Y19">幸福</option>
+                            <option value="Y20">新北產業園區</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="is_roundtrip_TPmetro">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_TPmetro" name="is_roundtrip_name">
+                    <button class="enter-button" type = "button" onclick="submitTPmetroform()">Enter</button>
+                </form>
+            </div>
+
+            <div class="window" id="windowTYmetro">
+                Window for TYmetro
+                <p>你的例行行程是？</p>
+                <form action ="/TYmetro_calculation" method ="POST">
+                    <label for="startStation_TYmetro">起始站點</label>
+                    <select id="startStation_TYmetro" name = "startStation_name" required>
+                          <option disabled selected>請選擇站點</option>
+                              <option value="A1">台北車站</option>
+                              <option value="A2">三重站</option>
+                              <option value="A3">新北產業園區站</option>
+                              <option value="A4">新莊副都心站</option>
+                              <option value="A5">泰山站</option>
+                              <option value="A6">泰山貴和站</option>
+                              <option value="A7">體育大學站</option>
+                              <option value="A8">長庚醫院站</option>
+                              <option value="A9">林口站</option>
+                              <option value="A10">山鼻站</option>
+                              <option value="A11">坑口站</option>
+                              <option value="A12">機場第一航廈站</option>
+                              <option value="A13">機場第二航廈站</option>
+                              <option value="A14a">機場旅館站</option>
+                              <option value="A15">大園站</option>
+                              <option value="A16">橫山站</option>
+                              <option value="A17">領航站</option>
+                              <option value="A18">高鐵桃園站</option>
+                              <option value="A19">桃園體育園區站</option>
+                              <option value="A20">興南站</option>
+                              <option value="A21">環北站</option>
+                              <option value="A22">老街溪站</option>
+                    </select>
+
+                    <label for="endStation_TYmetro">終點站點</label>
+                    <select id="endStation_TYmetro" name = "endStation_name" required>
+                         <option disabled selected>請選擇站點</option>
+                              <option value="A1">台北車站</option>
+                              <option value="A2">三重站</option>
+                              <option value="A3">新北產業園區站</option>
+                              <option value="A4">新莊副都心站</option>
+                              <option value="A5">泰山站</option>
+                              <option value="A6">泰山貴和站</option>
+                              <option value="A7">體育大學站</option>
+                              <option value="A8">長庚醫院站</option>
+                              <option value="A9">林口站</option>
+                              <option value="A10">山鼻站</option>
+                              <option value="A11">坑口站</option>
+                              <option value="A12">機場第一航廈站</option>
+                              <option value="A13">機場第二航廈站</option>
+                              <option value="A14a">機場旅館站</option>
+                              <option value="A15">大園站</option>
+                              <option value="A16">橫山站</option>
+                              <option value="A17">領航站</option>
+                              <option value="A18">高鐵桃園站</option>
+                              <option value="A19">桃園體育園區站</option>
+                              <option value="A20">興南站</option>
+                              <option value="A21">環北站</option>
+                              <option value="A22">老街溪站</option>
+                    </select>
+
+                    <label for="is_roundtrip_TYmetro">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_TYmetro" name="is_roundtrip_name">
+                    <button class="enter-button" type = "button" onclick="submitTYmetroform()">Enter</button>
+                </form>
+            </div>
+
+            <div class="window" id="windowTT_bus">
+                Window for TT_bus
+                <form action ="/TT_bus_calculation" method ="POST">
+
+                    <label for="TTbus_guest_type">票種</label>
+                    <select id="TTbus_guest_type" name = "bus_guest_type_name" required>
+                          <option disabled selected>---</option>
+                          <option value=0>全票</option>
+                          <option value=1>學生票</option>
+                          <option value=2>半票</option>
+                    </select>
+
+                    <label for="TTbus_sections">一段or兩段票</label>
+                    <select id="TTbus_sections" name = "sections_name" required>
+                          <option disabled selected>---</option>
+                          <option value=1>一段</option>
+                          <option value=2>兩段</option>
+                    </select>
+
+                    <label for="is_roundtrip_TTbus">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_TTbus" name="is_roundtrip_name">
+
+                    <button class="enter-button" type = "button" onclick="submitTTbusform()">Enter</button>
+                </form>
+            </div>
+
+            <div class="window" id="windowKeelung_bus">
+                Window for Keelung_bus
+                <form action ="/Keelung_bus_calculation" method ="POST">
+
+                    <label for="Keelungbus_guest_type">票種</label>
+                    <select id="Keelungbus_guest_type" name = "bus_guest_type_name" required>
+                          <option disabled selected>---</option>
+                          <option value=0>全票</option>
+                          <option value=1>學生票</option>
+                          <option value=2>半票</option>
+                    </select>
+
+                    <label for="Keelungbus_sections">一段or兩段票</label>
+                    <select id="Keelungbus_sections" name = "sections_name" required>
+                          <option disabled selected>---</option>
+                          <option value=1>一段</option>
+                          <option value=2>兩段</option>
+                    </select>
+
+                    <label for="keelung_night_mode">基隆夜間</label>
+                    <input type="checkbox" id="keelung_night_mode" name="keelung_night_mode_name">
+
+                    <label for="is_roundtrip_Keelungbus">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_Keelungbus" name="is_roundtrip_name">
+
+                    <button class="enter-button" type = "button" onclick="submitKeelungbusform()">Enter</button>
+                </form>
+            </div>
+
+            <div class="window" id="windowTaoyuan_bus">
+                Window for Taoyuan_bus
+                    <form action="TYbus_calculation" method="POST">
+
+                    <select id="TYbus_guest_type" name = "bus_guest_type_name" required>
+                          <option disabled selected>---</option>
+                          <option value=0>全票(計算補助用)</option>
+                          <option value=1>半票(計算補助用)</option>
+                    </select>
+
+                    <label for="TYbus_single_trip_cost">費用:</label>
+                    <input type="number" id="TYbus_single_trip_cost" name="TYbus_single_trip_cost_name" placeholder="票價上限60元" required max="60">
+
+                    <label for="is_roundtrip_TYbus">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_TYbus" name="is_roundtrip_name">
+
+                    <label for="is_TY_citizen">是否為桃園市民</label>
+                    <input type="checkbox" id="is_TY_citizen" name="is_TY_citizen_name">
+                    <button class="enter-button" type = "button" onclick="submitTYbusform()">Enter</button>
+                  </form>
+            </div>
+
+            <div class="window" id="windowLongBus">
+                Window for LongBus
+                  <form action="LongBus_calculation" method="POST">
+
+
+                    <label for="LongBus_single_trip_cost">費用:</label>
+                    <input type="number" id="LongBus_single_trip_cost" name="LongBus_single_trip_cost_name" required>
+
+                    <label for="is_roundtrip_LongBus">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_LongBus" name="is_roundtrip_name">
+
+                    <button class="enter-button" type = "button" onclick="submitLongbusform()">Enter</button>
+                  </form>
+            </div>
+
+            <div class="window" id="windowDH_tram">
+                Window for DH_tram
+                <p>你的例行行程是？</p>
+                <form action ="/DHtram_calculation" method ="POST">
+                    <label for="startStation_DHtram">起始站點</label>
+                    <select id="startStation_DHtram" name = "startStation_name" required>
+                          <option disabled selected>請選擇站點</option>
+                              <option value="V01">紅樹林</option>
+                              <option value="V02">竿蓁林</option>
+                              <option value="V03">淡金鄧公</option>
+                              <option value="V04">淡江大學</option>
+                              <option value="V05">淡金北新</option>
+                              <option value="V06">新市一路</option>
+                              <option value="V07">淡水行政中心</option>
+                              <option value="V08">濱海義山</option>
+                              <option value="V09">濱海沙崙</option>
+                              <option value="V10">淡海新市鎮</option>
+                              <option value="V11">崁頂</option>
+                              <option value="V26">淡水漁人碼頭站</option>
+                              <option value="V27">沙崙站</option>
+                              <option value="V28">台北海洋大學站</option>
+                    </select>
+
+                    <label for="endStation_DHtram">終點站點</label>
+                    <select id="endStation_DHtram" name = "endStation_name" required>
+                         <option disabled selected>請選擇站點</option>
+                              <option value="V01">紅樹林</option>
+                              <option value="V02">竿蓁林</option>
+                              <option value="V03">淡金鄧公</option>
+                              <option value="V04">淡江大學</option>
+                              <option value="V05">淡金北新</option>
+                              <option value="V06">新市一路</option>
+                              <option value="V07">淡水行政中心</option>
+                              <option value="V08">濱海義山</option>
+                              <option value="V09">濱海沙崙</option>
+                              <option value="V10">淡海新市鎮</option>
+                              <option value="V11">崁頂</option>
+                              <option value="V26">淡水漁人碼頭站</option>
+                              <option value="V27">沙崙站</option>
+                              <option value="V28">台北海洋大學站</option>
+                    </select>
+
+                    <label for="is_roundtrip_DHtram">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_DHtram" name="is_roundtrip_name">
+                    <button class="enter-button" type = "button" onclick="submitDHtramform()">Enter</button>
+                </form>
+            </div>
+
+            <div class="window" id="windowAK_tram">
+                Window for AK_tram
+                <p>你的例行行程是？</p>
+                <form action ="/AKtram_calculation" method ="POST">
+                    <label for="startStation_AKtram">起始站點</label>
+                    <select id="startStation_AKtram" name = "startStation_name" required>
+                          <option disabled selected>請選擇站點</option>
+                              <option value="K01">雙城站</option>
+                              <option value="K02">玫瑰中國城</option>
+                              <option value="K03">台北小城</option>
+                              <option value="K04">耕莘安康院區</option>
+                              <option value="K05">景文科大</option>
+                              <option value="K06">安康</option>
+                              <option value="K07">陽光運動公園</option>
+                              <option value="K08">新和國小</option>
+                              <option value="K09">十四張</option>
+                    </select>
+
+                    <label for="endStation_AKtram">終點站點</label>
+                    <select id="endStation_AKtram" name = "endStation_name" required>
+                         <option disabled selected>請選擇站點</option>
+                              <option value="K01">雙城站</option>
+                              <option value="K02">玫瑰中國城</option>
+                              <option value="K03">台北小城</option>
+                              <option value="K04">耕莘安康院區</option>
+                              <option value="K05">景文科大</option>
+                              <option value="K06">安康</option>
+                              <option value="K07">陽光運動公園</option>
+                              <option value="K08">新和國小</option>
+                              <option value="K09">十四張</option>
+                    </select>
+
+                    <label for="is_roundtrip_AKtram">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_AKtram" name="is_roundtrip_name">
+                    <button class="enter-button" type = "button" onclick="submitAKtramform()">Enter</button>
+                </form>
+            </div>
+
+            <div class="window" id="windowTrain">
+                Window for Train
+                <p>你的例行行程是？</p>
+                <form action ="/Train_calculation" method ="POST">
+                    <label for="startStation_Train">起始站點</label>
+                    <select id="startStation_Train" name = "startStation_name" required>
+                          <option disabled selected>請選擇站點</option>
+                          <optgroup label="基隆市" >
+                            <option value="900">基隆</option>
+                            <option value="910">三坑</option>
+                            <option value="920">八堵</option>
+                            <option value="930">七堵</option>
+                            <option value="940">百福</option>
+                            <option value="7361">海科館</option>
+                            <option value="7362">八斗子</option>
+                            <option value="7390">暖暖</option>
+                          </optgroup>
+                          <optgroup label="臺北市" >
+                            <option value="980">南港</option>
+                            <option value="990">松山</option>
+                            <option value="1000">臺北</option>
+                            <option value="1010">萬華</option>
+                          </optgroup>
+                          <optgroup label="新北市(含平溪線)" >
+                            <option value="950">五堵</option>
+                            <option value="960">汐止</option>
+                            <option value="970">汐科</option>
+                            <option value="1020">板橋</option>
+                            <option value="1030">浮洲</option>
+                            <option value="1040">樹林</option>
+                            <option value="1050">南樹林</option>
+                            <option value="1060">山佳</option>
+                            <option value="1070">鶯歌</option>
+                            <option value="7290">福隆</option>
+                            <option value="7300">貢寮</option>
+                            <option value="7310">雙溪</option>
+                            <option value="7320">牡丹</option>
+                            <option value="7330">三貂嶺</option>
+                            <option value="7331">大華</option>
+                            <option value="7332">十分</option>
+                            <option value="7333">望古</option>
+                            <option value="7334">嶺腳</option>
+                            <option value="7335">平溪</option>
+                            <option value="7336">菁桐</option>
+                            <option value="7350">猴洞</option>
+                            <option value="7360">瑞芳</option>
+                            <option value="7380">四腳亭</option>
+                          </optgroup>
+                          <optgroup label="桃園市" >
+                            <option value="1080">桃園</option>
+                            <option value="1090">內壢</option>
+                            <option value="1100">中壢</option>
+                            <option value="1110">埔心</option>
+                            <option value="1120">楊梅</option>
+                            <option value="1130">富岡</option>
+                            <option value="1140">新富</option>
+                          </optgroup>
+                    </select>
+
+                    <label for="endStation_Train">終點站點</label>
+                    <select id="endStation_Train" name = "endStation_name" required>
+                        <option disabled selected>請選擇站點</option>
+                        <optgroup label="基隆市" >
+                          <option value="900">基隆</option>
+                          <option value="910">三坑</option>
+                          <option value="920">八堵</option>
+                          <option value="930">七堵</option>
+                          <option value="940">百福</option>
+                          <option value="7361">海科館</option>
+                          <option value="7362">八斗子</option>
+                          <option value="7390">暖暖</option>
+                        </optgroup>
+                        <optgroup label="臺北市" >
+                          <option value="980">南港</option>
+                          <option value="990">松山</option>
+                          <option value="1000">臺北</option>
+                          <option value="1010">萬華</option>
+                        </optgroup>
+                        <optgroup label="新北市(含平溪線)" >
+                          <option value="950">五堵</option>
+                          <option value="960">汐止</option>
+                          <option value="970">汐科</option>
+                          <option value="1020">板橋</option>
+                          <option value="1030">浮洲</option>
+                          <option value="1040">樹林</option>
+                          <option value="1050">南樹林</option>
+                          <option value="1060">山佳</option>
+                          <option value="1070">鶯歌</option>
+                          <option value="7290">福隆</option>
+                          <option value="7300">貢寮</option>
+                          <option value="7310">雙溪</option>
+                          <option value="7320">牡丹</option>
+                          <option value="7330">三貂嶺</option>
+                          <option value="7331">大華</option>
+                          <option value="7332">十分</option>
+                          <option value="7333">望古</option>
+                          <option value="7334">嶺腳</option>
+                          <option value="7335">平溪</option>
+                          <option value="7336">菁桐</option>
+                          <option value="7350">猴洞</option>
+                          <option value="7360">瑞芳</option>
+                          <option value="7380">四腳亭</option>
+                        </optgroup>
+                        <optgroup label="桃園市" >
+                          <option value="1080">桃園</option>
+                          <option value="1090">內壢</option>
+                          <option value="1100">中壢</option>
+                          <option value="1110">埔心</option>
+                          <option value="1120">楊梅</option>
+                          <option value="1130">富岡</option>
+                          <option value="1140">新富</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="is_roundtrip_Train">是否往返</label>
+                    <input type="checkbox" id="is_roundtrip_Train" name="is_roundtrip_name">
+                    <button class="enter-button" type = "button" onclick="submitTrainform()">Enter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script defer src="{{ url_for('static', filename='planner_logic.js') }}"></script>
+
+</body>
+</html>

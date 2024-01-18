@@ -1,0 +1,101 @@
+body {
+            display: flex;
+            font-family: Arial, sans-serif;
+        }
+
+        .left-side {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #ccc;
+        }
+
+        .right-side {
+            flex: 2;
+            padding: 20px;
+        }
+
+        .day-square {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px; /* Increased space between days */
+        }
+
+        .day-label {
+            width: 50px; /* Adjust the width as needed */
+        }
+
+        .plus-button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .upper-part {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .radio-options {
+            display: flex;
+        }
+
+        .below-part {
+            margin-top: 20px;
+        }
+
+        .window {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .enter-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .user-block {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-right: 10px;
+            position: relative;
+            order-radius: 100x;
+            display: inline-block;
+            white-space: nowrap; /* Prevent Chinese string */
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            cursor: pointer;
+        }
+
+        #userBlocksContainer_Mon {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #userBlocksContainer_Tue {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #userBlocksContainer_Wed {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #userBlocksContainer_Thu {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #userBlocksContainer_Fri {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #userBlocksContainer_Sat {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #userBlocksContainer_Sun {
+            display: flex;  /* Updated to display as a flex container */
+        }
+        #total_sum {
+            font-size: 20px; /* You can also use specific values like px, em, etc. */
+        }
